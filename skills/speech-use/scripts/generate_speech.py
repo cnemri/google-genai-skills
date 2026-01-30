@@ -8,8 +8,16 @@
 import os
 import argparse
 import sys
+import wave
 from google import genai
 from google.genai import types
+
+def save_wav(filename, pcm_data, channels=1, rate=24000, sample_width=2):
+    with wave.open(filename, "wb") as wf:
+        wf.setnchannels(channels)
+        wf.setsampwidth(sample_width)
+        wf.setframerate(rate)
+        wf.writeframes(pcm_data)
 
 def get_client():
     api_key = os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
@@ -68,8 +76,7 @@ def main():
         if response.candidates and response.candidates[0].content.parts:
             part = response.candidates[0].content.parts[0]
             if part.inline_data:
-                with open(args.output, "wb") as f:
-                    f.write(part.inline_data.data)
+                save_wav(args.output, part.inline_data.data)
                 print(f"Audio saved to {args.output}")
             else:
                 print("No inline audio data found.")
