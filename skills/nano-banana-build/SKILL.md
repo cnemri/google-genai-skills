@@ -1,5 +1,5 @@
 ---
-name: nano-banana
+name: nano-banana-build
 description: Generate and edit high-quality images using Gemini 2.5 Flash Image and Gemini 3 Pro Image (Nano Banana). Supports Text-to-Image, Style Transfer, Virtual Try-On, and Character Consistency.
 ---
 

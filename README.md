@@ -17,9 +17,12 @@ This repository provides a set of high-performance agentic skills that allow you
 | :--- | :--- | :--- |
 | [`google-adk-python`](./skills/google-adk-python) | Google Agent Development Kit python SKD. | ✅ Implemented |
 | [`google-genai-sdk-python`](./skills/google-genai-sdk-python) | Use the right patterns for the Google GenAI Python SDK. | ✅ Implemented |
-| [`veo`](./skills/veo) | Google DeepMind Veo Skills. | ✅ Implemented |
-| [`nano-banana`](./skills/nano-banana) | Gemini Image Nano Banana Skills | ✅ Implemented |
-| `text-to-speech` | Gemini and Chirp TTS Skills. | 🛠️ Coming Soon |
+| [`veo-build`](./skills/veo-build) | Google DeepMind Veo Skills (Build). | ✅ Implemented |
+| [`nano-banana-build`](./skills/nano-banana-build) | Gemini Image Nano Banana Skills (Build) | ✅ Implemented |
+| [`speech-build`](./skills/speech-build) | Gemini and Chirp TTS Skills (Build). | ✅ Implemented |
+| `veo-use` | Google DeepMind Veo Skills (Use). | 🛠️ Coming Soon |
+| `nano-banana-use` | Gemini Image Nano Banana Skills (Use) | 🛠️ Coming Soon |
+| `speech-use` | Gemini and Chirp TTS Skills (Use). | 🛠️ Coming Soon |
 
 ## 🛠️ Installation
 

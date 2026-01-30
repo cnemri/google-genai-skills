@@ -1,5 +1,5 @@
 ---
-name: veo
+name: veo-build
 description: Create and edit videos using Google's Veo 2 and Veo 3 models. Supports Text-to-Video, Image-to-Video, Inpainting, and Advanced Controls.
 ---
 
