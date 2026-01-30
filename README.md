@@ -22,7 +22,7 @@ This repository provides a set of high-performance agentic skills that allow you
 | [`speech-build`](./skills/speech-build) | Gemini and Chirp TTS Skills (Build). | ✅ Implemented |
 | [`veo-use`](./skills/veo-use) | Google DeepMind Veo Skills (Use). | ✅ Implemented |
 | [`nano-banana-use`](./skills/nano-banana-use) | Gemini Image Nano Banana Skills (Use) | ✅ Implemented |
-| `speech-use` | Gemini and Chirp TTS Skills (Use). | 🛠️ Coming Soon |
+| [`speech-use`](./skills/speech-use) | Gemini and Chirp TTS Skills (Use). | ✅ Implemented |
 
 ## 🛠️ Installation
 

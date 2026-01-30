@@ -74,19 +74,45 @@ response = client.models.generate_content(
 ```
 
 ## Instant Custom Voice (Chirp 3)
-*Requires Allowlist.* Uses `voices:generateVoiceCloningKey`.
+*Requires Allowlist.* Uses `voices:generateVoiceCloningKey` to create a key, then `gemini-2.5-flash-tts` to synthesize.
 
-1.  **Create Key:** Post reference & consent audio to `generateVoiceCloningKey`.
-2.  **Synthesize:** Use the key in `voice_clone` config.
+### 1. Create Cloning Key (REST API)
+The SDK does not yet support key generation directly. Use the REST API.
+
+**Endpoint:** `POST https://texttospeech.googleapis.com/v1beta1/voices:generateVoiceCloningKey`
+
+**Body:**
+```json
+{
+  "reference_audio": {
+    "content": "BASE64_ENCODED_WAV",
+    "audio_config": {"audio_encoding": "LINEAR16", "sample_rate_hertz": 24000}
+  },
+  "voice_talent_consent": {
+    "content": "BASE64_ENCODED_WAV",
+    "audio_config": {"audio_encoding": "LINEAR16", "sample_rate_hertz": 24000}
+  },
+  "consent_script": "I am the owner of this voice and I consent to Google using this voice to create a synthetic voice model.",
+  "language_code": "en-US"
+}
+```
+
+### 2. Synthesize (SDK)
+Use the key in `VoiceConfig`.
 
 ```python
-# Synthesis with key
-request_body = {
-    "input": {"text": "Hello form my custom voice"},
-    "voice": {
-        "language_code": "en-US",
-        "voice_clone": {"voice_cloning_key": "YOUR_KEY"}
-    },
-    "audioConfig": {"audioEncoding": "LINEAR16"}
-}
+response = client.models.generate_content(
+    model="gemini-2.5-flash-tts",
+    contents="This is my cloned voice.",
+    config=types.GenerateContentConfig(
+        response_modalities=["AUDIO"],
+        speech_config=types.SpeechConfig(
+            voice_config=types.VoiceConfig(
+                voice_clone=types.VoiceClone(
+                    voice_cloning_key="YOUR_GENERATED_KEY"
+                )
+            )
+        )
+    )
+)
 ```
