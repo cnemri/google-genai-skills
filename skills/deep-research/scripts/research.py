@@ -22,8 +22,9 @@ def get_client():
         console.print("[bold red]Error:[/bold red] GOOGLE_API_KEY or GEMINI_API_KEY environment variable is required.")
         sys.exit(1)
     
-    # Interactions API (Deep Research) typically requires API Key authentication currently.
-    return genai.Client(api_key=api_key)
+    # Force vertexai=False to use the Gemini Developer API (AI Studio)
+    # which supports Interactions and File API with API Keys.
+    return genai.Client(api_key=api_key, vertexai=False)
 
 def upload_path(client, path):
     """Uploads a file or all supported files in a directory."""
@@ -51,7 +52,16 @@ def upload_path(client, path):
         try:
             file_obj = client.files.upload(file=fpath)
             console.print(f"[dim]Uploaded: {file_obj.uri}[/dim]")
-            uploaded_files.append({"type": "file", "uri": file_obj.uri, "mime_type": file_obj.mime_type})
+            
+            # Map mime_type to correct API ContentParam type
+            # Images -> 'image'
+            # PDFs/Text -> 'document' (Deep Research supports documents via URI)
+            if file_obj.mime_type.startswith("image/"):
+                ctype = "image"
+            else:
+                ctype = "document"
+                
+            uploaded_files.append({"type": ctype, "uri": file_obj.uri, "mime_type": file_obj.mime_type})
         except Exception as e:
             console.print(f"[bold red]Upload failed for {fpath}:[/bold red] {e}")
             # Continue uploading others
@@ -93,8 +103,7 @@ def main():
     is_complete = False
     full_text = ""
     
-    console.print(Panel(f"[bold blue]Starting Deep Research[/bold blue]
-Target: {args.prompt}", border_style="blue"))
+    console.print(Panel(f"[bold blue]Starting Deep Research[/bold blue] Target: {args.prompt}", border_style="blue"))
 
     try:
         # Initial Request
@@ -140,18 +149,15 @@ Target: {args.prompt}", border_style="blue"))
                         elif chunk.delta.type == "thought_summary" and not args.no_thoughts:
                             # Agent thoughts
                             thought = chunk.delta.content.text
-                            console.print(f"
-[bold yellow]Thinking:[/bold yellow] {thought}")
+                            console.print(f"\n[bold yellow]Thinking:[/bold yellow] {thought}")
                     
                     elif chunk.event_type == "interaction.complete":
                         is_complete = True
-                        console.print("
-[bold green]Research Complete[/bold green]")
+                        console.print("\n[bold green]Research Complete[/bold green]")
                         break
                         
                     elif chunk.event_type == "error":
-                        console.print(f"
-[bold red]API Error:[/bold red] {chunk.error.message}")
+                        console.print(f"\n[bold red]API Error:[/bold red] {chunk.error.message}")
                         is_complete = True
                         break
                 
@@ -159,8 +165,7 @@ Target: {args.prompt}", border_style="blue"))
                     break
 
             except Exception as e:
-                console.print(f"
-[bold red]Connection dropped:[/bold red] {e}")
+                console.print(f"\n[bold red]Connection dropped:[/bold red] {e}")
                 if not interaction_id:
                     # If we failed before getting an ID, we can't resume.
                     sys.exit(1)

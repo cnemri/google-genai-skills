@@ -59,8 +59,7 @@ def main():
         full_transcript = ""
         for result in response.results:
             transcript = result.alternatives[0].transcript
-            full_transcript += transcript + "
-"
+            full_transcript += transcript + "\n"
             
         print("Transcript:")
         print(full_transcript)

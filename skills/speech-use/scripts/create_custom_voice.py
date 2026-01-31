@@ -95,11 +95,9 @@ def main():
     key = create_instant_custom_voice_key(args.reference_audio, args.consent_audio, project_id)
     
     if key:
-        print("
-SUCCESS! Voice Cloning Key:")
+        print("SUCCESS! Voice Cloning Key:")
         print(key)
-        print("
-Save this key to use with generate_speech.py --voice-cloning-key")
+        print("\nSave this key to use with generate_speech.py --voice-cloning-key")
     else:
         print("Failed to generate key.")
 
