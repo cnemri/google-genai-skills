@@ -1,6 +1,6 @@
 ---
 name: speech-use
-description: Generate (TTS), Transcribe (STT), and Clone voices using Google's GenAI and Cloud Speech SDKs. Supports Gemini-TTS, Chirp 3, and Instant Custom Voice.
+description: "Generate (TTS), Transcribe (STT), and Clone voices using Google's GenAI and Cloud Speech SDKs. Supports Gemini-TTS, Chirp 3, and Instant Custom Voice."
 ---
 
 # Speech Use

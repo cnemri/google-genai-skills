@@ -1,6 +1,6 @@
 ---
 name: nano-banana-use
-description: Generate, edit, and compose images using Gemini Nano Banana models via portable Python scripts. Handles authentication via API Key or Vertex AI environment variables. Available parameters: prompt, model, aspect-ratio, safety-filter-level. Always confirm parameters with the user or explicitly state defaults before running.
+description: "Generate, edit, and compose images using Gemini Nano Banana models via portable Python scripts. Handles authentication via API Key or Vertex AI environment variables. Available parameters: prompt, model, aspect-ratio, safety-filter-level. Always confirm parameters with the user or explicitly state defaults before running."
 ---
 
 # Nano Banana Use
