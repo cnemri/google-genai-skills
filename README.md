@@ -23,6 +23,7 @@ This repository provides a set of high-performance agentic skills that allow you
 | [`veo-use`](./skills/veo-use) | Google DeepMind Veo Skills (Use). | ✅ Implemented |
 | [`nano-banana-use`](./skills/nano-banana-use) | Gemini Image Nano Banana Skills (Use) | ✅ Implemented |
 | [`speech-use`](./skills/speech-use) | Gemini and Chirp TTS Skills (Use). | ✅ Implemented |
+| [`deep-research`](./skills/deep-research) | Gemini Deep Research Agent (Interactions API). | ✅ Implemented |
 
 ## 🛠️ Installation
 
